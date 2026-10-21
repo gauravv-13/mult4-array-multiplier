@@ -63,7 +63,7 @@ module tb_mult;
                 // Wait for the next rising edge where UUT samples inputs,
                 @(posedge clk); 
                 @(posedge clk); 
-                #1; // Minor settling delay to sample steady output
+                #2; // Settle past the 1ns flip-flop delay in gate-level sim
                 checked_count = checked_count + 1;
 
                 // 4. Self-Checking Verification
