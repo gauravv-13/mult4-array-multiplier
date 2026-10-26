@@ -4,7 +4,8 @@ module tb_mult;
     reg [3:0] A, B;
     reg clk, rst_n;
     wire [7:0] P;
-    
+    reg  [7:0] expected; // full 8-bit product; A*B alone is only 4 bits wide in $display
+
     integer checked_count = 0;
     integer error_count = 0;
 
@@ -43,6 +44,7 @@ module tb_mult;
         // Verify Reset State
         if (P !== 8'h00) begin
             $display("ERROR: Output not zero during reset!");
+            error_count = error_count + 1;
         end
         
         // Release Reset
@@ -56,7 +58,7 @@ module tb_mult;
             for (j = 0; j < 16; j = j + 1) begin
                 
                 // Drive inputs on the falling edge to satisfy setup times
-                @(negedge clk);
+                // @(negedge clk);
                 A = i;
                 B = j;
                 
@@ -65,10 +67,11 @@ module tb_mult;
                 @(posedge clk); 
                 #2; // Settle past the 1ns flip-flop delay in gate-level sim
                 checked_count = checked_count + 1;
+                expected = A * B;
 
                 // 4. Self-Checking Verification
-                if (P !== (A * B)) begin
-                    $display("Mismatch at A=%d, B=%d: got %d, expected %d", A, B, P, A * B);
+                if (P !== expected) begin
+                    $display("Mismatch at A=%0d, B=%0d: got %0d, expected %0d", A, B, P, expected);
                     error_count = error_count + 1;
                 end
             end
