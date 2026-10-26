@@ -35,6 +35,14 @@
 
 ## Execution Commands (in Order)
 
+### Environment Check
+```bash
+iverilog -V | head -1
+yosys -V
+sta -version
+echo $PDK_ROOT $PDK        # should show sky130A; if not, run: sak-pdk sky130A
+```
+
 ### Part A: RTL Design and Verification
 ```bash
 iverilog -g2012 -o sim tb/tb_mult.v rtl/full_adder.v rtl/mult_array.v
