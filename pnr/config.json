@@ -2,7 +2,9 @@
     "DESIGN_NAME" : "mult_array",
     "VERILOG_FILES" : ["dir::../rtl/full_adder.v", "dir::../rtl/mult_array.v"],
     "CLOCK_PORT" : "clk",
-    "CLOCK_PERIOD" : 3.5,
+    "CLOCK_PERIOD" : 6,
     "FP_SIZING" : "absolute",
-    "DIE_AREA" : [0, 0, 150, 150]
+    "DIE_AREA" : [0, 0, 150, 150],
+    "PDK": "sky130A",
+    "STD_CELL_LIBRARY": "sky130_fd_sc_hd"
 }
